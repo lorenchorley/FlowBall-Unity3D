@@ -1,0 +1,93 @@
+{
+  "properties": {},
+  "exports": [],
+  "processes": {
+    "ButtonPress": {
+      "component": "systems/ButtonPress",
+      "metadata": {
+        "x": -150,
+        "y": 0
+      }
+    },
+    "DoorControls": {
+      "component": "systems/DoorControls",
+      "metadata": {
+        "x": 100,
+        "y": 100
+      }
+    },
+    "LiftControls": {
+      "component": "systems/LiftControls",
+      "metadata": {
+        "x": 300,
+        "y": -100
+      }
+    },
+    "Delay": {
+      "component": "events/Delay",
+      "metadata": {
+        "x": 100,
+        "y": -100
+      }
+    }
+  },
+  "connections": [
+    {
+      "src": {
+        "process": "Delay",
+        "port": "Out"
+      },
+      "tgt": {
+        "process": "LiftControls",
+        "port": "Toggle"
+      }
+    },
+    {
+      "src": {
+        "process": "ButtonPress",
+        "port": "OnPress"
+      },
+      "tgt": {
+        "process": "DoorControls",
+        "port": "Toggle"
+      }
+    },
+    {
+      "data": {
+        "type": "Door Controller",
+        "id": "Door1"
+      },
+      "tgt": {
+        "process": "DoorControls",
+        "port": "Door"
+      }
+    },
+    {
+      "data": {
+        "type": "Button Controller",
+        "id": "Button1"
+      },
+      "tgt": {
+        "process": "ButtonPress",
+        "port": "Button"
+      }
+    },
+    {
+      "data": {
+        "type": "Lift Controller",
+        "id": "Lift1"
+      },
+      "tgt": {
+        "process": "LiftControls",
+        "port": "Lift"
+      }
+    },
+    {
+      "data": "5",
+      "tgt": {
+        "process": "Delay",
+        "port": "Delay"
+      }
+    }
+  ]
+}

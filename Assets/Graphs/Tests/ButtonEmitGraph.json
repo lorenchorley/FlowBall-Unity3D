@@ -1,0 +1,49 @@
+{
+  "properties": {},
+  "exports": [],
+  "processes": {
+    "ButtonPress": {
+      "component": "systems/ButtonPress",
+      "metadata": {
+        "x": -150,
+        "y": 0
+      }
+    },
+    "EmitEvent": {
+      "component": "events/EmitEvent",
+      "metadata": {
+        "x": 150,
+        "y": 0
+      }
+    }
+  },
+  "connections": [
+    {
+      "src": {
+        "process": "ButtonPress",
+        "port": "OnPress"
+      },
+      "tgt": {
+        "process": "EmitEvent",
+        "port": "Data"
+      }
+    },
+    {
+      "data": {
+        "type": "Button Controller",
+        "id" :  "Button2"
+      },
+      "tgt": {
+        "process": "ButtonPress",
+        "port": "Button"
+      }
+    },
+    {
+      "data": "ButtonPress",
+      "tgt": {
+        "process": "EmitEvent",
+        "port": "EventName"
+      }
+    }
+  ]
+}

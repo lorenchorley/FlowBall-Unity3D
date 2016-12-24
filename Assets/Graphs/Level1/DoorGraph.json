@@ -1,0 +1,52 @@
+{
+  "properties": {},
+  "exports": [],
+  "processes": {
+    "ButtonPress": {
+      "component": "systems/ButtonPress",
+      "metadata": {
+        "x": -150,
+        "y": -50
+      }
+    },
+    "DoorControls": {
+      "component": "systems/DoorControls",
+      "metadata": {
+        "x": 150,
+        "y": 50
+      }
+    }
+  },
+  "connections": [
+    {
+      "src": {
+        "process": "ButtonPress",
+        "port": "OnPress"
+      },
+      "tgt": {
+        "process": "DoorControls",
+        "port": "Toggle"
+      }
+    },
+    {
+      "data": {
+        "type": "Door Controller",
+        "id": "Door1"
+      },
+      "tgt": {
+        "process": "DoorControls",
+        "port": "Door"
+      }
+    },
+    {
+      "data": {
+        "type": "Button Controller",
+        "id": "Button1"
+      },
+      "tgt": {
+        "process": "ButtonPress",
+        "port": "Button"
+      }
+    }
+  ]
+}

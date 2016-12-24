@@ -1,0 +1,86 @@
+{
+  "properties": {},
+  "exports": [],
+  "processes": {
+    "OutNode1": {
+      "component": "core/OutputToConsole",
+      "metadata": {
+        "x": -200,
+        "y": 100
+      }
+    },
+    "OutNode2": {
+      "component": "core/OutputToConsole",
+      "metadata": {
+        "x": -200,
+        "y": -100
+      }
+    },
+    "OutNode3": {
+      "component": "core/OutputToConsole",
+      "metadata": {
+        "x": 200,
+        "y": 0
+      }
+    },
+    "Combine": {
+      "component": "core/CombineStrings",
+      "metadata": {
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "connections": [
+    {
+      "src": {
+        "process": "OutNode1",
+        "port": "PassOn"
+      },
+      "tgt": {
+        "process": "Combine",
+        "port": "First"
+      }
+    },
+    {
+      "src": {
+        "process": "OutNode2",
+        "port": "PassOn"
+      },
+      "tgt": {
+        "process": "Combine",
+        "port": "Second"
+      },
+      "metadata": {
+        "route": 0
+      }
+    },
+    {
+      "src": {
+        "process": "Combine",
+        "port": "Out"
+      },
+      "tgt": {
+        "process": "OutNode3",
+        "port": "In"
+      },
+      "metadata": {
+        "route": 0
+      }
+    },
+    {
+      "data": "r",
+      "tgt": {
+        "process": "OutNode1",
+        "port": "In"
+      }
+    },
+    {
+      "data": "s",
+      "tgt": {
+        "process": "OutNode2",
+        "port": "In"
+      }
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "properties": {},
+  "exports": [],
+  "processes": {
+    "OutNode": {
+      "component": "core/OutputToConsole",
+      "metadata": {
+        "x": 150,
+        "y": 50
+      }
+    },
+    "Split": {
+      "component": "core/SplitString",
+      "metadata": {
+        "x": -150,
+        "y": -50
+      }
+    }
+  },
+  "connections": [
+    {
+      "src": {
+        "process": "Split",
+        "port": "Out"
+      },
+      "tgt": {
+        "process": "OutNode",
+        "port": "In"
+      }
+    },
+    {
+      "data": ",",
+      "tgt": {
+        "process": "Split",
+        "port": "Delimiter"
+      }
+    },
+    {
+      "data": "1,2,3",
+      "tgt": {
+        "process": "Split",
+        "port": "String"
+      }
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "properties": {},
+  "exports": [],
+  "processes": {
+    "DoorControls": {
+      "component": "systems/DoorControls",
+      "metadata": {
+        "x": 150,
+        "y": 0
+      }
+    },
+    "ListenForEvent": {
+      "component": "events/ListenForEvent",
+      "metadata": {
+        "x": -150,
+        "y": 0
+      }
+    }
+  },
+  "connections": [
+    {
+      "src": {
+        "process": "ListenForEvent",
+        "port": "Out"
+      },
+      "tgt": {
+        "process": "DoorControls",
+        "port": "Toggle"
+      }
+    },
+    {
+      "data": {
+        "type": "Door Controller",
+        "id" :  "Door1"
+      },
+      "tgt": {
+        "process": "DoorControls",
+        "port": "Door"
+      }
+    },
+    {
+      "data": "ButtonPress",
+      "tgt": {
+        "process": "ListenForEvent",
+        "port": "EventName"
+      }
+    }
+  ]
+}
