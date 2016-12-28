@@ -13,22 +13,36 @@ public class IndicatorController : MonoBehaviour {
     private EventSystem EventSystem;
     private Indicator Overlay;
 
+    public void RegisterOverlay(Indicator indicator) {
+        if (Overlays.Contains(indicator))
+            return;
+
+        Overlays.Add(indicator);
+
+        _Register(indicator);
+    }
+
+    private void _Register(Indicator indicator) {
+        if (indicator is EditorIndicatorOverlay) {
+            EditorIndicatorOverlay EIO = indicator as EditorIndicatorOverlay;
+
+            EIO.InitialSize = EIO.RectTransform.rect.size;
+
+            EIO.RectTransform.sizeDelta = EIO.InitialSize;
+
+        } else if (indicator is IndicatorOverlay) {
+            IndicatorOverlay IO = indicator as IndicatorOverlay;
+
+            IO.InitialDistance = (Camera.transform.position - IO.Target.position).magnitude;
+            IO.InitialSize = IO.RectTransform.rect.size;
+        }
+    }
+
     void Start() {
         EventSystem = GameObject.FindObjectOfType<EventSystem>();
 
         for (int i = 0; i < Overlays.Count; i++) {
-            Overlay = Overlays[i];
-
-            if (Overlay is EditorIndicatorOverlay) {
-                EditorIndicatorOverlay EIO = Overlay as EditorIndicatorOverlay;
-
-            } else if (Overlay is IndicatorOverlay) {
-                IndicatorOverlay IO = Overlay as IndicatorOverlay;
-
-                IO.InitialDistance = (Camera.transform.position - IO.Target.position).magnitude;
-                IO.InitialSize = IO.RectTransform.rect.size;
-            }
-            
+            _Register(Overlays[i]);
         }
 
     }

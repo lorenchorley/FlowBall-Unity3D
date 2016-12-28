@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class IndicatorOverlay : Indicator {
 
-    public bool Activated = true;
+    public bool Activated = false;
     public float ScaleModifier = 1;
     public float MaxDistance = 5;
     public bool InScreenSpace = false;
@@ -31,8 +31,23 @@ public class IndicatorOverlay : Indicator {
         }
     }
 
+    private bool isRegistered = false;
+    private void RegisterSelf() {
+        if (isRegistered)
+            return;
+        isRegistered = true;
+
+        IndicatorController IndicatorController = GameObject.FindObjectOfType<IndicatorController>();
+        IndicatorController.RegisterOverlay(this);
+    }
+
+    void Start() {
+        RegisterSelf();
+    }
+
     public override void ActivateIndicator() {
         Activated = true;
+        RegisterSelf();
     }
 
     public override void DeactivateIndicator() {

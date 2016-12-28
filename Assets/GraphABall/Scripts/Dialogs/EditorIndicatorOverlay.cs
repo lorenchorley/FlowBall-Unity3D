@@ -10,7 +10,6 @@ using UnityEngine.UI;
 
 public class EditorIndicatorOverlay : Indicator {
 
-    [NonSerialized]
     public bool Activated = false;
     public float ScaleModifier = 1;
 
@@ -38,12 +37,27 @@ public class EditorIndicatorOverlay : Indicator {
         }
     }
 
+    private bool isRegistered = false;
+    private void RegisterSelf() {
+        if (isRegistered)
+            return;
+        isRegistered = true;
+
+        IndicatorController IndicatorController = GameObject.FindObjectOfType<IndicatorController>();
+        IndicatorController.RegisterOverlay(this);
+    }
+
+    void Start() {
+        RegisterSelf();
+    }
+
     public override void ActivateIndicator() {
         if (!GraphEditor.isOpen) {
             GraphEditor.EventOptions.EditorOpened.AddListener(DeferredActivation);
             return;
         }
 
+        RegisterSelf();
         Activated = true;
 
         if (ComponentName == null || ComponentName == "")
